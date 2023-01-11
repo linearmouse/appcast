@@ -106,6 +106,7 @@ func updateAppcast() {
 				Nodes []struct {
 					Name            string
 					TagName         string
+					IsDraft         bool
 					PublishedAt     time.Time
 					DescriptionHTML string `graphql:"descriptionHTML"`
 					ReleaseAssets   struct {
@@ -127,6 +128,10 @@ func updateAppcast() {
 	var releases []Release
 
 	for _, node := range query.Repository.Releases.Nodes {
+		if node.IsDraft {
+			continue
+		}
+
 		var channel string
 		if strings.Contains(node.TagName, "-beta.") {
 			channel = "beta"
