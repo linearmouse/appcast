@@ -115,7 +115,7 @@ func updateAppcast() {
 						}
 					} `graphql:"releaseAssets(first: 1)"`
 				}
-			} `graphql:"releases(first: 10)"`
+			} `graphql:"releases(first: 30)"`
 		} `graphql:"repository(owner: \"linearmouse\", name: \"linearmouse\")"`
 	}
 
