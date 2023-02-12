@@ -27,7 +27,6 @@ func handle(w http.ResponseWriter, r *http.Request) {
 	match := uaAppVersionRe.FindStringSubmatch(r.UserAgent())
 	if match != nil {
 		appVersion := match[1]
-		println(appVersion)
 		if appVersion != "" {
 			requestsTotal.With(prometheus.Labels{"app_version": appVersion}).Inc()
 		}
@@ -40,6 +39,7 @@ func handle(w http.ResponseWriter, r *http.Request) {
 	}
 
 	w.Header().Set("Content-Type", "text/xml")
+	w.Header().Set("Cache-Control", "s-maxage=60, stale-while-revalidate=300")
 	w.Write(appcast)
 }
 
