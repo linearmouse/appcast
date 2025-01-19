@@ -24,6 +24,10 @@ func handle(w http.ResponseWriter, r *http.Request) {
 		return
 	}
 
+	if handleSparkle2(w, r) {
+		return
+	}
+
 	match := uaAppVersionRe.FindStringSubmatch(r.UserAgent())
 	if match != nil {
 		appVersion := match[1]
